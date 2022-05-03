@@ -88,4 +88,47 @@ The .should method will confirm what we should see. In this situatiuon, there sh
 ------------------ Third lesson ------------------ 
 ### 3.Setting up Data Before Each Test
 
-It's important to confirm that every it() function is a diferrent test
+It's important to confirm that every it() function is a diferent test
+
+beforeEach() is a function provided by Mocha, and it can allow us to make sure don't repeat cy.visit() method at any test. 
+
+describe("React TodoMVC", () => {
+  beforeEach(() => {
+    cy.visit("http://localhost:8888")
+  })
+
+  it("adds a single todo", () => {
+    cy.get(".new-todo").type("Buy Milk{enter}")
+    cy.get(".todo-list li").should("have.length", 1)
+  })
+
+  it("adds three todos", () => {})
+})
+
+This way you can run the location and then the actions you want to run on the app, however, we can repeat our self several times. Instead of having to manually type out and hard code each and every todo, we can simply put them into a variable. 
+
+Remember, Cypress is just JavaScript, so let's refactor the names of our todos into constants so we can easily re-use them.
+
+We will create variables at the top of our test, just underneath the describe() block.
+
+describe("React TodoMVC", () => {
+  const TODO_ITEM_ONE = "Buy Milk"
+  const TODO_ITEM_TWO = "Pay Rent"
+  const TODO_ITEM_THREE = "Pickup Dry Cleaning"
+
+  beforeEach(() => {
+    cy.visit("http://localhost:8888")
+  })
+
+  it("adds a single todo", () => {
+    cy.get(".new-todo").type(`${TODO_ITEM_ONE}{enter}`)
+    cy.get(".todo-list li").should("have.length", 1)
+  })
+
+  it("adds three todos", () => {
+    cy.get(".new-todo").type(`${TODO_ITEM_ONE}{enter}`)
+    cy.get(".new-todo").type(`${TODO_ITEM_TWO}{enter}`)
+    cy.get(".new-todo").type(`${TODO_ITEM_THREE}{enter}`)
+  })
+})
+
