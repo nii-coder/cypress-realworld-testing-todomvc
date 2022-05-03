@@ -33,3 +33,11 @@ describe("third test", () => {
       cy.get(".todo-list li").should("have.length", 1)
     })
   })
+
+describe("third test", () => {
+    it("adds a single todo", () => {//every it function is a different test. 
+      cy.visit("http://localhost:8888")
+      cy.get(".new-todo").type("Buy Milk{enter}")
+      cy.get(".todo-list li").should("have.length", 1)
+    })
+})
