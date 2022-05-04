@@ -132,3 +132,15 @@ describe("React TodoMVC", () => {
   })
 })
 
+Now. we will try to confirm that any todo is going to have the same value/characters the user added. We will need to get it from the label from the element and then use .ep() to catch the first element we need. We will see it in our test "counting todos"
+
+cy.get(".todo-list li").eq(0)
+
+We then pass .eq() the index of our element, which should be the first one, and it will return that element from the array.
+
+Then we will use the find() method to find our <label> element. Finally, we want to make sure that the <label> contains the text of our todo item.
+
+cy.get(".todo-list li").eq(0).find("label").should("contain", TODO_ITEM_ONE)
+
+So, we get the the element with .get() method, select the first element with .ep(0), .find() the lable and make sure to check if the todo is the same as our variable with .should("contain", variable_name)
+

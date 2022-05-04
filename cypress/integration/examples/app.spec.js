@@ -83,4 +83,18 @@ describe("trying beforeEach", () => {
       cy.get(".todo-list li").should("have.length", 3)
     })
   })
-  
+
+  describe("todos locos", () => {
+    
+      const TODO_ITEM_ONEs = "Buy Milk"
+      const TODO_ITEM_TWOs = "Pay Rent"
+
+    beforeEach(() => {
+        cy.visit("http://localhost:8888")
+      })
+    it("counting todos", () => {
+      cy.get(".new-todo").type(`${TODO_ITEM_ONEs}{enter}`)
+      cy.get(".todo-list li").should("have.length", 1)
+      cy.get(".todo-list li").eq(0).find("label").should("contain", TODO_ITEM_ONEs)
+    })
+  })  
