@@ -144,3 +144,52 @@ cy.get(".todo-list li").eq(0).find("label").should("contain", TODO_ITEM_ONE)
 
 So, we get the the element with .get() method, select the first element with .ep(0), .find() the lable and make sure to check if the todo is the same as our variable with .should("contain", variable_name)
 
+------------------ Four lesson ------------------
+### 4. How to use Cypress Commands
+
+In cypress, we can create commands in order to optimize our work flow and we can customize it. This way we can ake portions of our code re-usable
+
+The command we will use in order to create new commands is 
+
+Cypress.Commands.add("createDefaultTodos", () => {})
+
+There we will be able to add variables and actions
+
+Cypress.Commands.add("createDefaultTodos", () => {
+  const TODO_ITEM_ONE = "Buy Milk"
+  const TODO_ITEM_TWO = "Pay Rent"
+  const TODO_ITEM_THREE = "Pickup Dry Cleaning"
+
+  cy.get(".new-todo")
+    .type(`${TODO_ITEM_ONE}{enter}`)
+    .type(`${TODO_ITEM_TWO}{enter}`)
+    .type(`${TODO_ITEM_THREE}{enter}`)
+})
+
+Once we have our command set up, se can include it in our list of test like 
+
+it("adds three todos", () => {
+  cy.createDefaultTodos()
+  cy.get(".todo-list li").should("have.length", 3)
+})
+
+The final code would be:
+
+describe ("testing comands", () => {
+  
+  beforeEach(() => {
+    cy.visit("http://localhost:8888")
+    })
+
+  it("adds three todos", () => {
+    cy.createDefaultTodos()
+    cy.get(".todo-list li").should("have.length", 3)
+  })
+})
+
+Is important to make sure we have add the source in order to 
+
+.Now we will confirm that all the new elements are going to be added to the buttom of this array. 
+
+We can start the new todos with the command we just created. 
+
